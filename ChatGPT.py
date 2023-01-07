@@ -1,5 +1,7 @@
 import requests
+
 import variables
+
 
 def chatGPTRequest(userInput):
     requestBody = {
@@ -10,4 +12,8 @@ def chatGPTRequest(userInput):
     }
     answer = requests.post(variables.chatGPTPostUrl, headers={"Authorization": "Bearer " + variables.API_KEY},
                            json=requestBody)
-    return answer.json()['choices'][0]['text']
+
+    try:
+        return answer.json()['choices'][0]['text']
+    except:
+        return "There was an error " + answer.json()
